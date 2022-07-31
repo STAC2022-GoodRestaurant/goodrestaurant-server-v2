@@ -29,8 +29,11 @@
     "helmet": "^5.1.1",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.5.0",
+    "mysql2": "^2.3.3",
     "pino": "^8.3.1",
     "pino-pretty": "^8.1.0",
+    "typeorm": "^0.3.7",
     "winston": "^3.8.1"
   }
 }
