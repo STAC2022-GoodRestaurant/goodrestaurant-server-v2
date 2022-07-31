@@ -1,0 +1,36 @@
+{
+  "packageManager": "yarn@3.2.2",
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "dev": "ts-node-dev -r dotenv/config ./src | pino-pretty",
+    "serve": "node -r dotenv/config ./dist"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/http-errors": "^1.8.2",
+    "@types/node": "^18.6.2",
+    "@types/winston": "^2.4.4",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@types/express-pino-logger": "^4.0.3",
+    "@types/express-useragent": "^1.0.2",
+    "@types/jsonwebtoken": "^8.5.8",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-pino-logger": "^7.0.0",
+    "express-useragent": "^1.0.15",
+    "express-validator": "^6.14.2",
+    "helmet": "^5.1.1",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "pino": "^8.3.1",
+    "pino-pretty": "^8.1.0",
+    "winston": "^3.8.1"
+  }
+}

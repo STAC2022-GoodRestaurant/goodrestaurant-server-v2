@@ -1,0 +1,28 @@
+dist
+
+# Dependency directories
+node_modules
+
+# For develop
+.env
+/tmp
+docker-compose.yaml
+
+#vscode
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+#yarn berry zero install (pnp)
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/version
+
+# vscode rest http client
+*.http
