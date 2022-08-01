@@ -1,6 +1,7 @@
-import { Column } from "typeorm";
+import { Column, Entity } from "typeorm";
 import { Model } from "../public/model";
 
+@Entity()
 export class UserModel extends Model {
   @Column({ type: "varchar", length: 40 })
   email!: string;
