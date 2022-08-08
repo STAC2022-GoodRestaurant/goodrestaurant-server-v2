@@ -5,26 +5,26 @@ import useragent from "express-useragent";
 import pino from "express-pino-logger";
 import createError, { HttpError } from "http-errors";
 import { logger } from "./utils/logger";
-import { authRouter, authUrl } from "./routes/auth";
+import { authRouter, authPath } from "./routes/auth";
 
 export const initApp = () => {
   const app = express();
 
   app.enable("trust proxy");
 
-  app.use(cors());
   app.use(helmet());
   app.use(useragent.express());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(pino());
+  app.use(cors());
 
   // route
   app.get("/", (req, res) => {
     res.json({ msg: "hello" });
   });
 
-  app.use(authUrl, authRouter);
+  app.use(authPath, authRouter);
 
   app.use(
     (

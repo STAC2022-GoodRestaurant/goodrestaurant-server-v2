@@ -1,6 +1,12 @@
-import { Router } from "express";
+import { Request, Response, NextFunction, Router } from "express";
 
-export const authUrl = "/auth";
+export const authPath = "/auth";
 export const authRouter = Router();
 
-authRouter.post("auth");
+authRouter.post(
+  "/sign-up",
+  async (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.body);
+    res.status(200).json(req.body).end();
+  }
+);
