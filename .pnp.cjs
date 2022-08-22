@@ -37,13 +37,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/express", "npm:4.17.13"],\
             ["@types/express-pino-logger", "npm:4.0.3"],\
             ["@types/express-useragent", "npm:1.0.2"],\
+            ["@types/express-validator", "npm:3.0.0"],\
             ["@types/http-errors", "npm:1.8.2"],\
             ["@types/jsonwebtoken", "npm:8.5.8"],\
             ["@types/node", "npm:18.6.2"],\
             ["@types/winston", "npm:2.4.4"],\
             ["body-parser", "npm:1.20.0"],\
-            ["class-transformer", "npm:0.5.1"],\
-            ["class-validator", "npm:0.13.2"],\
             ["cors", "npm:2.8.5"],\
             ["dotenv", "npm:16.0.1"],\
             ["express", "npm:4.18.1"],\
@@ -283,6 +282,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@types/express-useragent", "npm:1.0.2"],\
             ["@types/express", "npm:4.17.13"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/express-validator", [\
+        ["npm:3.0.0", {\
+          "packageLocation": "./.yarn/cache/@types-express-validator-npm-3.0.0-440b67c317-bd6081a9cf.zip/node_modules/@types/express-validator/",\
+          "packageDependencies": [\
+            ["@types/express-validator", "npm:3.0.0"],\
+            ["express-validator", "npm:6.14.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -844,26 +853,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/chownr-npm-2.0.0-638f1c9c61-c57cf9dd07.zip/node_modules/chownr/",\
           "packageDependencies": [\
             ["chownr", "npm:2.0.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["class-transformer", [\
-        ["npm:0.5.1", {\
-          "packageLocation": "./.yarn/cache/class-transformer-npm-0.5.1-96b5161e6c-f191c8b4cc.zip/node_modules/class-transformer/",\
-          "packageDependencies": [\
-            ["class-transformer", "npm:0.5.1"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["class-validator", [\
-        ["npm:0.13.2", {\
-          "packageLocation": "./.yarn/cache/class-validator-npm-0.13.2-915206252c-0deb4c29fa.zip/node_modules/class-validator/",\
-          "packageDependencies": [\
-            ["class-validator", "npm:0.13.2"],\
-            ["libphonenumber-js", "npm:1.10.11"],\
-            ["validator", "npm:13.7.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -2026,15 +2015,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["libphonenumber-js", [\
-        ["npm:1.10.11", {\
-          "packageLocation": "./.yarn/cache/libphonenumber-js-npm-1.10.11-4a8f0f1528-d802159ac8.zip/node_modules/libphonenumber-js/",\
-          "packageDependencies": [\
-            ["libphonenumber-js", "npm:1.10.11"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["lodash", [\
         ["npm:4.17.21", {\
           "packageLocation": "./.yarn/cache/lodash-npm-4.17.21-6382451519-eb835a2e51.zip/node_modules/lodash/",\
@@ -3064,13 +3044,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/express", "npm:4.17.13"],\
             ["@types/express-pino-logger", "npm:4.0.3"],\
             ["@types/express-useragent", "npm:1.0.2"],\
+            ["@types/express-validator", "npm:3.0.0"],\
             ["@types/http-errors", "npm:1.8.2"],\
             ["@types/jsonwebtoken", "npm:8.5.8"],\
             ["@types/node", "npm:18.6.2"],\
             ["@types/winston", "npm:2.4.4"],\
             ["body-parser", "npm:1.20.0"],\
-            ["class-transformer", "npm:0.5.1"],\
-            ["class-validator", "npm:0.13.2"],\
             ["cors", "npm:2.8.5"],\
             ["dotenv", "npm:16.0.1"],\
             ["express", "npm:4.18.1"],\
