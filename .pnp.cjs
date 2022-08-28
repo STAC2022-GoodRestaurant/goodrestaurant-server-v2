@@ -34,6 +34,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["@types/cors", "npm:2.8.12"],\
+            ["@types/ejs", "npm:3.1.1"],\
             ["@types/express", "npm:4.17.13"],\
             ["@types/express-pino-logger", "npm:4.0.3"],\
             ["@types/express-useragent", "npm:1.0.2"],\
@@ -41,10 +42,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/http-errors", "npm:1.8.2"],\
             ["@types/jsonwebtoken", "npm:8.5.8"],\
             ["@types/node", "npm:18.6.2"],\
+            ["@types/nodemailer", "npm:6.4.5"],\
             ["@types/winston", "npm:2.4.4"],\
             ["body-parser", "npm:1.20.0"],\
             ["cors", "npm:2.8.5"],\
             ["dotenv", "npm:16.0.1"],\
+            ["ejs", "npm:3.1.8"],\
             ["express", "npm:4.18.1"],\
             ["express-pino-logger", "npm:7.0.0"],\
             ["express-useragent", "npm:1.0.15"],\
@@ -54,6 +57,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jsonwebtoken", "npm:8.5.1"],\
             ["mongoose", "npm:6.5.0"],\
             ["mysql2", "npm:2.3.3"],\
+            ["nodemailer", "npm:6.7.8"],\
             ["pino", "npm:8.3.1"],\
             ["pino-pretty", "npm:8.1.0"],\
             ["ts-node", "virtual:dc3fc578bfa5e06182a4d2be39ede0bc5b74940b1ffe0d70c26892ab140a4699787750fba175dc306292e80b4aa2c8c5f68c2a821e69b2c37e360c0dff36ff66#npm:10.9.1"],\
@@ -240,6 +244,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/ejs", [\
+        ["npm:3.1.1", {\
+          "packageLocation": "./.yarn/cache/@types-ejs-npm-3.1.1-0ab41f0e19-12fa444920.zip/node_modules/@types/ejs/",\
+          "packageDependencies": [\
+            ["@types/ejs", "npm:3.1.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/express", [\
         ["npm:4.17.13", {\
           "packageLocation": "./.yarn/cache/@types-express-npm-4.17.13-0e12fe9c24-12a2a0e6c4.zip/node_modules/@types/express/",\
@@ -328,6 +341,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         ["npm:18.6.2", {\
           "packageLocation": "./.yarn/cache/@types-node-npm-18.6.2-cd106eb850-644c460bae.zip/node_modules/@types/node/",\
           "packageDependencies": [\
+            ["@types/node", "npm:18.6.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/nodemailer", [\
+        ["npm:6.4.5", {\
+          "packageLocation": "./.yarn/cache/@types-nodemailer-npm-6.4.5-7ffbb8e061-ecbe34a6eb.zip/node_modules/@types/nodemailer/",\
+          "packageDependencies": [\
+            ["@types/nodemailer", "npm:6.4.5"],\
             ["@types/node", "npm:18.6.2"]\
           ],\
           "linkType": "HARD"\
@@ -1218,6 +1241,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["ejs", [\
+        ["npm:3.1.8", {\
+          "packageLocation": "./.yarn/cache/ejs-npm-3.1.8-30583753fc-1d40d198ad.zip/node_modules/ejs/",\
+          "packageDependencies": [\
+            ["ejs", "npm:3.1.8"],\
+            ["jake", "npm:10.8.5"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["emoji-regex", [\
         ["npm:8.0.0", {\
           "packageLocation": "./.yarn/cache/emoji-regex-npm-8.0.0-213764015c-d4c5c39d5a.zip/node_modules/emoji-regex/",\
@@ -1431,6 +1464,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/fecha-npm-4.2.3-75248da3fd-f94e2fb3ac.zip/node_modules/fecha/",\
           "packageDependencies": [\
             ["fecha", "npm:4.2.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["filelist", [\
+        ["npm:1.0.4", {\
+          "packageLocation": "./.yarn/cache/filelist-npm-1.0.4-3a835ae0a7-a303573b08.zip/node_modules/filelist/",\
+          "packageDependencies": [\
+            ["filelist", "npm:1.0.4"],\
+            ["minimatch", "npm:5.1.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -1932,6 +1975,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/isexe-npm-2.0.0-b58870bd2e-26bf6c5480.zip/node_modules/isexe/",\
           "packageDependencies": [\
             ["isexe", "npm:2.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["jake", [\
+        ["npm:10.8.5", {\
+          "packageLocation": "./.yarn/cache/jake-npm-10.8.5-6a5e87e533-56c913ecf5.zip/node_modules/jake/",\
+          "packageDependencies": [\
+            ["jake", "npm:10.8.5"],\
+            ["async", "npm:3.2.4"],\
+            ["chalk", "npm:4.1.2"],\
+            ["filelist", "npm:1.0.4"],\
+            ["minimatch", "npm:3.1.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -2494,6 +2550,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["nodemailer", [\
+        ["npm:6.7.8", {\
+          "packageLocation": "./.yarn/cache/nodemailer-npm-6.7.8-38163d624e-92d4a1d488.zip/node_modules/nodemailer/",\
+          "packageDependencies": [\
+            ["nodemailer", "npm:6.7.8"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["nopt", [\
         ["npm:5.0.0", {\
           "packageLocation": "./.yarn/cache/nopt-npm-5.0.0-304b40fbfe-d35fdec187.zip/node_modules/nopt/",\
@@ -3041,6 +3106,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["root-workspace-0b6124", "workspace:."],\
             ["@types/cors", "npm:2.8.12"],\
+            ["@types/ejs", "npm:3.1.1"],\
             ["@types/express", "npm:4.17.13"],\
             ["@types/express-pino-logger", "npm:4.0.3"],\
             ["@types/express-useragent", "npm:1.0.2"],\
@@ -3048,10 +3114,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/http-errors", "npm:1.8.2"],\
             ["@types/jsonwebtoken", "npm:8.5.8"],\
             ["@types/node", "npm:18.6.2"],\
+            ["@types/nodemailer", "npm:6.4.5"],\
             ["@types/winston", "npm:2.4.4"],\
             ["body-parser", "npm:1.20.0"],\
             ["cors", "npm:2.8.5"],\
             ["dotenv", "npm:16.0.1"],\
+            ["ejs", "npm:3.1.8"],\
             ["express", "npm:4.18.1"],\
             ["express-pino-logger", "npm:7.0.0"],\
             ["express-useragent", "npm:1.0.15"],\
@@ -3061,6 +3129,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jsonwebtoken", "npm:8.5.1"],\
             ["mongoose", "npm:6.5.0"],\
             ["mysql2", "npm:2.3.3"],\
+            ["nodemailer", "npm:6.7.8"],\
             ["pino", "npm:8.3.1"],\
             ["pino-pretty", "npm:8.1.0"],\
             ["ts-node", "virtual:dc3fc578bfa5e06182a4d2be39ede0bc5b74940b1ffe0d70c26892ab140a4699787750fba175dc306292e80b4aa2c8c5f68c2a821e69b2c37e360c0dff36ff66#npm:10.9.1"],\

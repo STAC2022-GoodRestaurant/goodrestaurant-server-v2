@@ -151,6 +151,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/ejs@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@types/ejs@npm:3.1.1"
+  checksum: 12fa444920aaa70af2fae4424fa62b49c23b31a37129c428b7c9f9068e58c0696b4e5601b0449f87bae8794e039c679a43651c356c34f17d1bb460456dd41441
+  languageName: node
+  linkType: hard
+
 "@types/express-pino-logger@npm:^4.0.3":
   version: 4.0.3
   resolution: "@types/express-pino-logger@npm:4.0.3"
@@ -229,6 +236,15 @@ __metadata:
   version: 18.6.2
   resolution: "@types/node@npm:18.6.2"
   checksum: 644c460baedb1fbbd55369ab621167cb39ddaa727fd4fcf4bc7080183cf936d7ff8c2c886ba93ff42768d6f7a579a540e6d1e63d3adba4e5758fb13671ae68ce
+  languageName: node
+  linkType: hard
+
+"@types/nodemailer@npm:^6.4.5":
+  version: 6.4.5
+  resolution: "@types/nodemailer@npm:6.4.5"
+  dependencies:
+    "@types/node": "*"
+  checksum: ecbe34a6eb5559bdca58115b5c03ff048896e14dc7ea6426b3fdfc03484764eb9e4100fcff37b96d012543ca47238c973d0f5bbfb1ab5a2d1f1f25d494714c59
   languageName: node
   linkType: hard
 
@@ -655,7 +671,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^4.0.0, chalk@npm:^4.1.0":
+"chalk@npm:^4.0.0, chalk@npm:^4.0.2, chalk@npm:^4.1.0":
   version: 4.1.2
   resolution: "chalk@npm:4.1.2"
   dependencies:
@@ -985,6 +1001,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ejs@npm:^3.1.8":
+  version: 3.1.8
+  resolution: "ejs@npm:3.1.8"
+  dependencies:
+    jake: ^10.8.5
+  bin:
+    ejs: bin/cli.js
+  checksum: 1d40d198ad52e315ccf37e577bdec06e24eefdc4e3c27aafa47751a03a0c7f0ec4310254c9277a5f14763c3cd4bbacce27497332b2d87c74232b9b1defef8efc
+  languageName: node
+  linkType: hard
+
 "emoji-regex@npm:^8.0.0":
   version: 8.0.0
   resolution: "emoji-regex@npm:8.0.0"
@@ -1165,6 +1192,15 @@ __metadata:
   version: 4.2.3
   resolution: "fecha@npm:4.2.3"
   checksum: f94e2fb3acf5a7754165d04549460d3ae6c34830394d20c552197e3e000035d69732d74af04b9bed3283bf29fe2a9ebdcc0085e640b0be3cc3658b9726265e31
+  languageName: node
+  linkType: hard
+
+"filelist@npm:^1.0.1":
+  version: 1.0.4
+  resolution: "filelist@npm:1.0.4"
+  dependencies:
+    minimatch: ^5.0.1
+  checksum: a303573b0821e17f2d5e9783688ab6fbfce5d52aaac842790ae85e704a6f5e4e3538660a63183d6453834dedf1e0f19a9dadcebfa3e926c72397694ea11f5160
   languageName: node
   linkType: hard
 
@@ -1605,6 +1641,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jake@npm:^10.8.5":
+  version: 10.8.5
+  resolution: "jake@npm:10.8.5"
+  dependencies:
+    async: ^3.2.3
+    chalk: ^4.0.2
+    filelist: ^1.0.1
+    minimatch: ^3.0.4
+  bin:
+    jake: ./bin/cli.js
+  checksum: 56c913ecf5a8d74325d0af9bc17a233bad50977438d44864d925bb6c45c946e0fee8c4c1f5fe2225471ef40df5222e943047982717ebff0d624770564d3c46ba
+  languageName: node
+  linkType: hard
+
 "joycon@npm:^3.1.1":
   version: 3.1.1
   resolution: "joycon@npm:3.1.1"
@@ -1862,7 +1912,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^3.1.1":
+"minimatch@npm:^3.0.4, minimatch@npm:^3.1.1":
   version: 3.1.2
   resolution: "minimatch@npm:3.1.2"
   dependencies:
@@ -2104,6 +2154,13 @@ __metadata:
   bin:
     node-gyp: bin/node-gyp.js
   checksum: 1437fa4a879b5b9010604128e8da8609b57c66034262087539ee04a8b764b8436af2be01bab66f8fc729a3adba2dcc21b10a32b9f552696c3fa8cd657d134fc4
+  languageName: node
+  linkType: hard
+
+"nodemailer@npm:^6.7.8":
+  version: 6.7.8
+  resolution: "nodemailer@npm:6.7.8"
+  checksum: 92d4a1d48813825989c7f5fc7cbcf5ba8d1a8acf8e10e420b4aa7670ade7abd0c543cc6cf8adf14e44c62552e26efb37b2a15a9af90a515fa90b40ffc71c433e
   languageName: node
   linkType: hard
 
@@ -2609,6 +2666,7 @@ __metadata:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@types/cors": ^2.8.12
+    "@types/ejs": ^3.1.1
     "@types/express": ^4.17.13
     "@types/express-pino-logger": ^4.0.3
     "@types/express-useragent": ^1.0.2
@@ -2616,10 +2674,12 @@ __metadata:
     "@types/http-errors": ^1.8.2
     "@types/jsonwebtoken": ^8.5.8
     "@types/node": ^18.6.2
+    "@types/nodemailer": ^6.4.5
     "@types/winston": ^2.4.4
     body-parser: ^1.20.0
     cors: ^2.8.5
     dotenv: ^16.0.1
+    ejs: ^3.1.8
     express: ^4.18.1
     express-pino-logger: ^7.0.0
     express-useragent: ^1.0.15
@@ -2629,6 +2689,7 @@ __metadata:
     jsonwebtoken: ^8.5.1
     mongoose: ^6.5.0
     mysql2: ^2.3.3
+    nodemailer: ^6.7.8
     pino: ^8.3.1
     pino-pretty: ^8.1.0
     ts-node: ^10.9.1
