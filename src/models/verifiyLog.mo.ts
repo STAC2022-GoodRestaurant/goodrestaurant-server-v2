@@ -2,12 +2,12 @@ import { Column } from "typeorm";
 import { Model } from "../public/model";
 
 export class VerifyLog extends Model {
-  @Column({ type: "number" })
-  userId!: number;
+  @Column({ type: "string" })
+  email!: string;
 
-  @Column({ type: "number" })
-  verifyCode!: number;
+  @Column({ type: "string" })
+  verifyCode!: string;
 
   @Column({ type: "boolean", default: false })
-  isSuccess!: boolean;
+  isSuccess?: boolean;
 }
