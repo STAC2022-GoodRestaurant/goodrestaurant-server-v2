@@ -80,13 +80,15 @@ authRouter.post(
 
       const userRepository = await AppDataSource.getRepository(UserModel);
 
-      await userRepository.create({
+      const user = await userRepository.create({
         email,
         name,
         password,
       });
 
-      res.json(req.body);
+      await userRepository.save(user);
+
+      res.json({ message: "ok" });
     } catch (err) {
       next(err);
     }
@@ -132,10 +134,12 @@ authRouter.post(
         html: emailTemplete,
       });
 
-      await verifyLogRepository.create({
+      const verifyLog = await verifyLogRepository.create({
         email,
         verifyCode,
       });
+
+      await verifyLogRepository.save(verifyLog);
 
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
