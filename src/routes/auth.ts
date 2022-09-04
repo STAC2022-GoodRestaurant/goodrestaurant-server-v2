@@ -207,27 +207,29 @@ authRouter.put(
         return res.status(400).json({ error: "이미 인증된 요청입니다." });
       }
 
-      if (lastVerifyLog.verifyCode === verifyCode) {
-        await verifiyLogRepository.update(
-          {
-            isSuccess: true,
-          },
-          {
-            id: lastVerifyLog.id,
-          }
-        );
-
-        await userRepository.update(
-          {
-            isVerified: true,
-          },
-          {
-            email,
-          }
-        );
-
-        return res.json({ message: "ok" });
+      if (lastVerifyLog.verifyCode !== verifyCode) {
+        return res.json({ error: "인증번호가 일치하지않습니다." });
       }
+
+      await verifiyLogRepository.update(
+        {
+          id: lastVerifyLog.id,
+        },
+        {
+          isSuccess: true,
+        }
+      );
+
+      await userRepository.update(
+        {
+          email,
+        },
+        {
+          isVerified: true,
+        }
+      );
+
+      return res.json({ message: "ok" });
     } catch (err) {
       next(err);
     }
