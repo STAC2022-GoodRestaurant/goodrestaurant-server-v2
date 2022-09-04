@@ -1,11 +1,12 @@
-import { Column } from "typeorm";
+import { Column, Entity } from "typeorm";
 import { Model } from "../public/model";
 
+@Entity()
 export class VerifyLog extends Model {
-  @Column({ type: "string" })
+  @Column({ type: "varchar" })
   email!: string;
 
-  @Column({ type: "string" })
+  @Column({ type: "varchar" })
   verifyCode!: string;
 
   @Column({ type: "boolean", default: false })
