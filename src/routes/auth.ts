@@ -49,6 +49,12 @@ authRouter.post(
           .json({ error: "이메일이나 비밀번호가 잘못되었습니다." });
       }
 
+      if (user.isVerified === false) {
+        return res
+          .status(403)
+          .json({ error: "이메일 인증이 진행되지 않았습니다." });
+      }
+
       const accessToken = jwt.sign(
         {
           id: user.id,
