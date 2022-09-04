@@ -1,6 +1,7 @@
 import ejs from "ejs";
 import { NextFunction, Request, Response, Router } from "express";
 import { body } from "express-validator";
+import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import path from "path";
 import { UserModel } from "../models/user.mo";
@@ -11,11 +12,58 @@ import { AppDataSource } from "../utils/rds";
 export const authPath = "/auth";
 export const authRouter = Router();
 
+authRouter.get(
+  "/test-token",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const accessToken = jwt.sign(
+      {
+        id: 1,
+        email: "test@test.com",
+        name: "test",
+      },
+      process.env.JWT_SECRET || "test",
+      {
+        expiresIn: "7d",
+      }
+    );
+
+    res.json({ accessToken });
+  }
+);
+
 authRouter.post(
   "/sign-in",
-  validator([body("email").exists(), body("password").exists()]),
+  validator([body("email").exists().isEmail(), body("password").exists()]),
   async (req: Request, res: Response, next: NextFunction) => {
-    res.json(req.body);
+    try {
+      const { email, password } = req.body;
+      const userRepository = await AppDataSource.getRepository(UserModel);
+
+      const user = await userRepository.findOne({
+        where: { email, password },
+      });
+
+      if (!user) {
+        return res
+          .status(401)
+          .json({ error: "이메일이나 비밀번호가 잘못되었습니다." });
+      }
+
+      const accessToken = jwt.sign(
+        {
+          id: user.id,
+          email: user?.email,
+          name: user.name,
+        },
+        process.env.JWT_SECRET || "test",
+        {
+          expiresIn: "7d",
+        }
+      );
+      res.json({ accessToken });
+    } catch (err) {
+      next(err);
+    }
   }
 );
 
@@ -30,7 +78,7 @@ authRouter.post(
     try {
       const { email, name, password } = req.body;
 
-      const userRepository = AppDataSource.getRepository(UserModel);
+      const userRepository = await AppDataSource.getRepository(UserModel);
 
       await userRepository.create({
         email,
@@ -61,7 +109,6 @@ authRouter.post(
         { verifyCode },
         function (err, data) {
           if (err) {
-            console.log(err);
           }
           emailTemplete = data;
         }
