@@ -1,11 +1,11 @@
-import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
-import helmet from "helmet";
-import useragent from "express-useragent";
+import express, { NextFunction, Request, Response } from "express";
 import pino from "express-pino-logger";
+import useragent from "express-useragent";
+import helmet from "helmet";
 import createError, { HttpError } from "http-errors";
+import { authPath, authRouter } from "./routes/auth";
 import { logger } from "./utils/logger";
-import { authRouter, authPath } from "./routes/auth";
 
 export const initApp = () => {
   const app = express();
@@ -34,11 +34,15 @@ export const initApp = () => {
       _next: NextFunction
     ) => {
       if (createError.isHttpError(err)) {
-        if (err.statussCode >= 500) {
+        if (err.statusCode >= 500) {
           logger.error(err.message);
         } else {
-          res.status(err.status).json({ error: err.message });
+          res.statusCode = err.statusCode;
+          res.json({ error: err.message });
         }
+      } else {
+        res.statusCode = 500;
+        res.json({ error: err.message });
       }
     }
   );
