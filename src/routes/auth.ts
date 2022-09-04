@@ -134,7 +134,10 @@ authRouter.post(
       });
 
       const mailOptions = await transporter.sendMail({
-        from: `착한식당`,
+        from: {
+          name: `착한식당`,
+          address: process.env.NODEMAILER_USER || "",
+        },
         to: email,
         subject: "착한식당 회원가입을 위한 인증번호입니다.",
         html: emailTemplete,
