@@ -1,6 +1,5 @@
-import { Column, Entity, JoinTable, ManyToMany } from "typeorm";
+import { Column, Entity } from "typeorm";
 import { Model } from "../public/model";
-import { Restaurant } from "./restaurant.mo";
 
 @Entity()
 export class UserModel extends Model {
@@ -16,7 +15,7 @@ export class UserModel extends Model {
   @Column({ type: "boolean", default: false })
   isVerified!: boolean;
 
-  @ManyToMany(() => Restaurant)
-  @JoinTable()
-  visitedList?: Restaurant[];
+  // @ManyToMany(() => Restaurant)
+  // @JoinTable()
+  // visitedList?: Restaurant[];
 }
