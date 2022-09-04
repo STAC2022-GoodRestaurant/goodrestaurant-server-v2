@@ -41,6 +41,7 @@ export const initApp = () => {
           res.json({ error: err.message });
         }
       } else {
+        console.log(err);
         res.statusCode = 500;
         res.json({ error: err.message });
       }
