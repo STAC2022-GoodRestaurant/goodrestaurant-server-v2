@@ -238,3 +238,23 @@ authRouter.put(
     }
   }
 );
+
+authRouter.delete(
+  "/cancel",
+  validator([body("email").exists().isEmail()]),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { email } = req.body;
+
+      const userRepository = await AppDataSource.getRepository(UserModel);
+      const verifiyLogRepository = await AppDataSource.getRepository(VerifyLog);
+
+      await userRepository.delete({ email });
+      await verifiyLogRepository.delete({ email });
+
+      res.json({ message: "ok" });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
