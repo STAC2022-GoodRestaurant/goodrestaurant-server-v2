@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany } from "typeorm";
 import { Model } from "../public/model";
 import { Coupon } from "./coupon.mo";
+import { Review } from "./review.mo";
 
 @Entity()
 export class UserModel extends Model {
@@ -24,6 +25,9 @@ export class UserModel extends Model {
 
   @OneToMany((type) => Coupon, (coupon) => coupon.user)
   coupons!: Coupon[];
+
+  @OneToMany((type) => Review, (review) => review.writer)
+  reviews!: Review[];
 
   // @ManyToMany(() => Restaurant)
   // @JoinTable()
