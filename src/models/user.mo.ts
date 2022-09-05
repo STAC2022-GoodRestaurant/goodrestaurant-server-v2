@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, OneToMany } from "typeorm";
 import { Model } from "../public/model";
 import { Coupon } from "./coupon.mo";
 
@@ -22,7 +22,7 @@ export class UserModel extends Model {
   @Column({ type: "boolean", default: false })
   businessVerified!: boolean;
 
-  @ManyToOne(() => Coupon)
+  @OneToMany((type) => Coupon, (coupon) => coupon.user)
   coupons!: Coupon[];
 
   // @ManyToMany(() => Restaurant)

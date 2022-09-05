@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-} from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, OneToMany } from "typeorm";
 import { Model } from "../public/model";
 import { Category } from "./category.mo";
 import { Coupon } from "./coupon.mo";
@@ -25,7 +18,7 @@ export class Restaurant extends Model {
   @OneToMany((type) => Menu, (menu) => menu.restaurant)
   menus!: Menu[];
 
-  @ManyToOne(() => Coupon)
+  @OneToMany((type) => Coupon, (coupon) => coupon.restaurant)
   coupons!: Coupon[];
 
   @ManyToMany(() => Restaurant)
