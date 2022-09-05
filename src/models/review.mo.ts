@@ -10,6 +10,9 @@ export class Review extends Model {
   @Column({ type: "int" })
   rating!: number;
 
+  @Column({ type: "varchar", nullable: true })
+  imageUrl?: string;
+
   @ManyToOne(() => UserModel)
   writer!: UserModel;
 }
