@@ -1,5 +1,6 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
 import { Model } from "../public/model";
+import { Coupon } from "./coupon.mo";
 
 @Entity()
 export class UserModel extends Model {
@@ -14,6 +15,15 @@ export class UserModel extends Model {
 
   @Column({ type: "boolean", default: false })
   isVerified!: boolean;
+
+  @Column({ type: "varchar", length: 20, nullable: true })
+  businessRegistration?: string;
+
+  @Column({ type: "boolean", default: false })
+  businessVerified!: boolean;
+
+  @ManyToOne(() => Coupon)
+  coupons!: Coupon[];
 
   // @ManyToMany(() => Restaurant)
   // @JoinTable()
