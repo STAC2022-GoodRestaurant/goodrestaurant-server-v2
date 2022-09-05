@@ -11,6 +11,9 @@ export class Coupon extends Model {
   @Column({ type: "int" })
   visitCount!: number;
 
+  @Column({ type: "boolean", default: false })
+  isUsed!: boolean;
+
   @OneToMany((type) => Restaurant, (restaurant) => restaurant.coupons)
   restaurant!: Restaurant;
 
