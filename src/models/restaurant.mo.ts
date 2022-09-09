@@ -9,6 +9,9 @@ export class Restaurant extends Model {
   @Column({ type: "varchar", length: 20 })
   name!: string;
 
+  @Column({ type: "varchar", length: 100 })
+  imageUrl!: string;
+
   @Column({ type: "varchar", length: 50 })
   address!: string;
 
@@ -18,8 +21,8 @@ export class Restaurant extends Model {
   @Column({ type: "int", default: 8 })
   coupon_max!: number;
 
-  @Column({ type: "varchar", length: 40 })
-  coupon_price!: string;
+  @Column({ type: "int" })
+  coupon_price!: number;
 
   @OneToMany((type) => Menu, (menu) => menu.restaurant)
   menus!: Menu[];
