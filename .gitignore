@@ -28,3 +28,5 @@ docker-compose.yaml
 *.http
 
 public
+
+.DS_store
