@@ -8,5 +8,8 @@
     "strict": true,
     "skipLibCheck": true,
     "experimentalDecorators": true,
-  }
+  },
+  "typeRoots": [
+    "./src/types"
+  ],
 }

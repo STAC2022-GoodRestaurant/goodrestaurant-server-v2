@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
+import { Payload } from "../types/express";
+import { logger } from "../utils/logger";
 
 export const validator = (validations: any[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -28,8 +30,10 @@ export const authValidator = () => {
     const token = authorization.split(" ")[1];
 
     try {
-      jwt.verify(token, "secretOrPrivateKey");
-    } catch (err) {
+      const payload = jwt.verify(token, process.env.JWT_SECRET || "test");
+      req.user = payload as Payload;
+    } catch (err: any) {
+      logger.error(err.message);
       return res.status(401).json({
         error: "잘못된 토큰입니다.",
       });
