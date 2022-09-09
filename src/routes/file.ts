@@ -43,6 +43,7 @@ fileRouter.post(
 
 fileRouter.get(
   "/212ffde63921676baa62ceafa39c32bc6a60bd2d52f2fccbaad916c899555740/:fileId",
+  authValidator(),
   async (req: Request, res: Response, next: NextFunction) => {
     const { fileId } = req.params;
 
@@ -62,6 +63,7 @@ fileRouter.get(
 
 fileRouter.get(
   "/60bd2d52f2fccbaad916c899555740212ffde63921676baa62ceafa39c32bc6a/:fileId",
+  authValidator(),
   async (req: Request, res: Response, next: NextFunction) => {
     const { fileId } = req.params;
 
