@@ -26,3 +26,5 @@ docker-compose.yaml
 
 # vscode rest http client
 *.http
+
+public
