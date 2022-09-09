@@ -8,7 +8,7 @@ import { AppDataSource } from "../utils/rds";
 export const restaurantPath = "/restaurant";
 export const restaurantRouter = Router();
 
-restaurantRouter.get(
+restaurantRouter.post(
   "/",
   authValidator(),
   validator([
@@ -17,7 +17,7 @@ restaurantRouter.get(
     body("address").exists().isString(),
     body("content").exists().isString(),
     body("coupon_max").exists().isInt(),
-    body("coupon_price").exists().isInt(),
+    body("coupon_price").exists().isString(),
     body("menus").exists(),
   ]),
   async (req: Request, res: Response, next: NextFunction) => {
@@ -37,9 +37,6 @@ restaurantRouter.get(
       );
       const menuRepository = await AppDataSource.getRepository(Menu);
 
-      for (const menu of menus) {
-      }
-
       const restaurant = await restaurantRepository.create({
         name,
         imageUrl,
@@ -48,6 +45,18 @@ restaurantRouter.get(
         coupon_max,
         coupon_price,
       });
+
+      for (const menu of menus) {
+        const menuData = await menuRepository.create({
+          name: menu.name,
+          content: menu.content,
+          price: menu.price,
+          imageUrl: menu.imageUrl,
+          restaurant,
+        });
+
+        await menuRepository.save(menuData);
+      }
 
       await restaurantRepository.save(restaurant);
 
