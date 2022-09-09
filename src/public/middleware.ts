@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
+import { UserModel } from "../models/user.mo";
 import { Payload } from "../types/express";
 import { logger } from "../utils/logger";
+import { AppDataSource } from "../utils/rds";
 
 export const validator = (validations: any[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -30,8 +32,14 @@ export const authValidator = () => {
     const token = authorization.split(" ")[1];
 
     try {
-      const payload = jwt.verify(token, process.env.JWT_SECRET || "test");
-      req.user = payload as Payload;
+      const payload = jwt.verify(
+        token,
+        process.env.JWT_SECRET || "test"
+      ) as Payload;
+
+      const userRepository = await AppDataSource.getRepository(UserModel);
+
+      req.user = await userRepository.findOne({ where: { id: payload.id } });
     } catch (err: any) {
       logger.error(err.message);
       return res.status(401).json({
