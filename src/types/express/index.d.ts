@@ -8,6 +8,6 @@ interface Payload {
 
 declare module "express" {
   interface Request extends express.Request {
-    user?: Payload;
+    user?: UserModel;
   }
 }
