@@ -13,7 +13,7 @@ export class Menu extends Model {
   @Column({ type: "int" })
   price!: number;
 
-  @Column({ type: "varchar", length: 50, nullable: true })
+  @Column({ type: "varchar", length: 100, nullable: true })
   imageUrl?: string;
 
   @ManyToOne(() => Restaurant, (restaurant) => restaurant.menus)

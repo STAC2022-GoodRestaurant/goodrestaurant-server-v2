@@ -21,8 +21,8 @@ export class Restaurant extends Model {
   @Column({ type: "int", default: 8 })
   coupon_max!: number;
 
-  @Column({ type: "int" })
-  coupon_price!: number;
+  @Column({ type: "varchar", length: 40 })
+  coupon_price!: string;
 
   @OneToMany((type) => Menu, (menu) => menu.restaurant)
   menus!: Menu[];
