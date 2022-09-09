@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
+import multer from "multer";
 import { UserModel } from "../models/user.mo";
 import { Payload } from "../types/express";
 import { logger } from "../utils/logger";
+import { imageStorage } from "../utils/multer";
 import { AppDataSource } from "../utils/rds";
 
 export const validator = (validations: any[]) => {
@@ -50,3 +52,10 @@ export const authValidator = () => {
     return next();
   };
 };
+
+export const multerValidator = multer({
+  limits: {
+    fileSize: 1024 * 1024 * 20,
+  },
+  storage: imageStorage,
+});
