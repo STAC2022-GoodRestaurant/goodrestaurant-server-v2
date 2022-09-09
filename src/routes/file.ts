@@ -42,12 +42,44 @@ fileRouter.post(
 );
 
 fileRouter.get(
-  "/60bd2d52f2fccbaad916c899555740212ffde63921676baa62ceafa39c32bc6a/:filename",
+  "/212ffde63921676baa62ceafa39c32bc6a60bd2d52f2fccbaad916c899555740/:fileId",
   async (req: Request, res: Response, next: NextFunction) => {
-    const { filename } = req.params;
+    const { fileId } = req.params;
 
-    const stream = fs.createReadStream("public/images/" + filename);
-    res.setHeader("Content-Disposition", `attachment; filename=${filename}`);
+    const fileRepository = await AppDataSource.getRepository(File);
+
+    const fileData = await fileRepository.findOne({
+      where: { id: Number(fileId) },
+    });
+
+    if (!fileData) {
+      return res.status(404).json({ error: "파일을 찾을 수 없습니다." });
+    }
+
+    res.sendFile(fileData.path, { root: __dirname + "../../../" });
+  }
+);
+
+fileRouter.get(
+  "/60bd2d52f2fccbaad916c899555740212ffde63921676baa62ceafa39c32bc6a/:fileId",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { fileId } = req.params;
+
+    const fileRepository = await AppDataSource.getRepository(File);
+
+    const fileData = await fileRepository.findOne({
+      where: { id: Number(fileId) },
+    });
+
+    if (!fileData) {
+      return res.status(404).json({ error: "파일을 찾을 수 없습니다." });
+    }
+
+    const stream = fs.createReadStream("public/images/" + fileData.filename);
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename=${fileData.filename}`
+    );
     stream.pipe(res);
   }
 );
