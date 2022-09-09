@@ -12,7 +12,6 @@ export const couponRouter = Router();
 
 couponRouter.get(
   "/",
-  validator([param("restaurantId").exists()]),
   authValidator(),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -36,10 +35,11 @@ couponRouter.get(
 couponRouter.put(
   "/:restaurantId",
   authValidator(),
+  validator([param("restaurantId").exists()]),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { user } = req;
-      const { restaurantId } = req.body;
+      const { restaurantId } = req.params;
 
       const couponRepository = await AppDataSource.getRepository(Coupon);
       const restaurantRepository = await AppDataSource.getRepository(
@@ -47,7 +47,7 @@ couponRouter.put(
       );
 
       const restaurant = await restaurantRepository.findOne({
-        where: { id: restaurantId },
+        where: { id: Number(restaurantId) },
       });
 
       if (!restaurant) {
@@ -56,7 +56,7 @@ couponRouter.put(
 
       const coupon = await couponRepository.findOne({
         where: {
-          restaurant: { id: restaurantId },
+          restaurant: { id: Number(restaurantId) },
           user: { id: user?.id },
           isUsed: false,
           max: Not(Raw("visitCount")),
@@ -75,6 +75,40 @@ couponRouter.put(
         ],
         []
       );
+
+      res.json({ message: "ok" });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+couponRouter.delete(
+  "/:couponId",
+  authValidator(),
+  validator([param("couponId").exists()]),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { user } = req;
+      const { couponId } = req.params;
+
+      const couponRepository = await AppDataSource.getRepository(Coupon);
+
+      const coupon = await couponRepository.findOne({
+        where: { id: Number(couponId) },
+      });
+
+      if (!coupon) {
+        return res.status(404).json({ error: "쿠폰을 찾을 수 없습니다." });
+      }
+
+      const result = await couponRepository.update(
+        { id: coupon.id },
+        { isUsed: false }
+      );
+      console.log(result);
+
+      res.json({ message: "ok" });
     } catch (err) {
       next(err);
     }
