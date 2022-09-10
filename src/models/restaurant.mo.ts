@@ -1,5 +1,8 @@
+import { Geometry } from "geojson";
 import { Column, Entity, JoinTable, ManyToMany, OneToMany } from "typeorm";
+
 import { Model } from "../public/model";
+import { GeometryTransformer } from "../utils/transformers";
 import { Category } from "./category.mo";
 import { Coupon } from "./coupon.mo";
 import { Menu } from "./menu.mo";
@@ -23,6 +26,14 @@ export class Restaurant extends Model {
 
   @Column({ type: "varchar", length: 40 })
   coupon_price!: string;
+
+  @Column({
+    type: "geometry",
+    spatialFeatureType: "Point",
+    srid: 4326,
+    transformer: new GeometryTransformer(),
+  })
+  position!: Geometry;
 
   @OneToMany((type) => Menu, (menu) => menu.restaurant)
   menus!: Menu[];
