@@ -17,11 +17,14 @@ couponRouter.get(
     try {
       const { user } = req;
 
-      const userRepository = await AppDataSource.getRepository(UserModel);
+      const couponRepository = await AppDataSource.getRepository(Coupon);
 
-      const coupons = await userRepository.find({
-        where: { id: user?.id },
-        relations: { coupons: true },
+      const coupons = await couponRepository.find({
+        where: {
+          user: {
+            id: user.id,
+          },
+        },
         order: { updatedAt: "desc" },
       });
 
@@ -63,18 +66,20 @@ couponRouter.put(
         },
       });
 
-      await couponRepository.upsert(
-        [
-          {
-            max: restaurant?.coupon_max,
-            visitCount: coupon ? coupon.visitCount + 1 : 1,
-            isUsed: false,
-            restaurant,
-            user,
-          },
-        ],
-        []
-      );
+      if (coupon) {
+        await couponRepository.update(
+          { id: coupon.id },
+          { visitCount: coupon.visitCount + 1 }
+        );
+      } else {
+        await couponRepository.insert({
+          max: restaurant?.coupon_max,
+          visitCount: 1,
+          isUsed: false,
+          restaurant,
+          user,
+        });
+      }
 
       res.json({ message: "ok" });
     } catch (err) {
@@ -95,14 +100,19 @@ couponRouter.delete(
       const couponRepository = await AppDataSource.getRepository(Coupon);
 
       const coupon = await couponRepository.findOne({
-        where: { id: Number(couponId) },
+        where: {
+          id: Number(couponId),
+          isUsed: false,
+          user: { id: user.id },
+          max: Raw("visitCount"),
+        },
       });
 
       if (!coupon) {
         return res.status(404).json({ error: "쿠폰을 찾을 수 없습니다." });
       }
 
-      await couponRepository.update({ id: coupon.id }, { isUsed: false });
+      await couponRepository.update({ id: coupon.id }, { isUsed: true });
 
       res.json({ message: "ok" });
     } catch (err) {
