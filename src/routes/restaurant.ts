@@ -24,7 +24,9 @@ restaurantRouter.get(
     const rawData = await restaurantRepository.query(
       `select *, ST_DISTANCE_SPHERE(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[${Number(
         lon
-      )},${Number(lat)}]}'), position) AS dist FROM restaurant`
+      )},${Number(
+        lat
+      )}]}'), position) AS dist FROM restaurant HAVING dist <= 2500`
     );
 
     res.json(rawData);
@@ -66,7 +68,7 @@ restaurantRouter.post(
         )}`,
         {
           headers: {
-            Authorization: "KakaoAK 59194d642aca541568e7d404f61496da",
+            Authorization: `KakaoAK ${process.env.KAKAO_ACCESS_KEY}`,
           },
         }
       );
