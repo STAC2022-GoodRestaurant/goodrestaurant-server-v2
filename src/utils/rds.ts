@@ -12,4 +12,5 @@ export const AppDataSource = new typeorm.DataSource({
   extra: {
     charset: "utf8mb4_unicode_ci",
   },
+  legacySpatialSupport: false,
 });
