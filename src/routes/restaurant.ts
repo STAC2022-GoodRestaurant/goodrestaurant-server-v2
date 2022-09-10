@@ -1,12 +1,35 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { body } from "express-validator";
+import { body, query } from "express-validator";
 import { Menu } from "../models/menu.mo";
 import { Restaurant } from "../models/restaurant.mo";
 import { authValidator, validator } from "../public/middleware";
 import { AppDataSource } from "../utils/rds";
+import axios from "axios";
+import { Geometry } from "geojson";
 
 export const restaurantPath = "/restaurant";
 export const restaurantRouter = Router();
+
+restaurantRouter.get(
+  "/",
+  authValidator(),
+  validator([
+    query("lat").exists().isNumeric(),
+    query("lon").exists().isNumeric(),
+  ]),
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { lat, lon } = req.query;
+
+    const restaurantRepository = await AppDataSource.getRepository(Restaurant);
+    const rawData = await restaurantRepository.query(
+      `select *, ST_DISTANCE_SPHERE(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[${Number(
+        lon
+      )},${Number(lat)}]}'), position) AS dist FROM restaurant`
+    );
+
+    res.json(rawData);
+  }
+);
 
 restaurantRouter.post(
   "/",
@@ -37,6 +60,29 @@ restaurantRouter.post(
       );
       const menuRepository = await AppDataSource.getRepository(Menu);
 
+      const kakaoData = await axios.get(
+        `https://dapi.kakao.com/v2/local/search/address.json?query=${encodeURI(
+          address
+        )}`,
+        {
+          headers: {
+            Authorization: "KakaoAK 59194d642aca541568e7d404f61496da",
+          },
+        }
+      );
+
+      if (kakaoData.data.meta.total_count === 0) {
+        return res.status(400).json({ error: "잘못된 도로명 주소입니다." });
+      }
+
+      const kakao_address = kakaoData.data.documents[0].address;
+
+      const position: Geometry = {
+        type: "Point",
+        coordinates: [Number(kakao_address.x), Number(kakao_address.y)],
+      };
+      console.log(position);
+
       const restaurant = await restaurantRepository.create({
         name,
         imageUrl,
@@ -44,6 +90,7 @@ restaurantRouter.post(
         content,
         coupon_max,
         coupon_price,
+        position,
       });
 
       for (const menu of menus) {
