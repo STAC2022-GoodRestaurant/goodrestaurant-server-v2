@@ -7,6 +7,7 @@ import path from "path";
 import { UserModel } from "../models/user.mo";
 import { VerifyLog } from "../models/verifiyLog.mo";
 import { validator } from "../public/middleware";
+import { logger } from "../utils/logger";
 import { AppDataSource } from "../utils/rds";
 
 export const authPath = "/auth";
@@ -150,9 +151,9 @@ authRouter.post(
 
       await verifyLogRepository.save(verifyLog);
 
-      transporter.sendMail(mailOptions, function (error, info) {
+      transporter.sendMail(mailOptions, (error, _info) => {
         if (error) {
-          console.log(error);
+          logger.error(error.message);
         }
 
         res.json({ verifyCode });

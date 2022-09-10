@@ -81,7 +81,6 @@ restaurantRouter.post(
         type: "Point",
         coordinates: [Number(kakao_address.x), Number(kakao_address.y)],
       };
-      console.log(position);
 
       const restaurant = await restaurantRepository.create({
         name,

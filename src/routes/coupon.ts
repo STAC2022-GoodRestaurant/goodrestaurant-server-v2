@@ -102,11 +102,7 @@ couponRouter.delete(
         return res.status(404).json({ error: "쿠폰을 찾을 수 없습니다." });
       }
 
-      const result = await couponRepository.update(
-        { id: coupon.id },
-        { isUsed: false }
-      );
-      console.log(result);
+      await couponRepository.update({ id: coupon.id }, { isUsed: false });
 
       res.json({ message: "ok" });
     } catch (err) {
