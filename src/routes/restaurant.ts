@@ -46,6 +46,7 @@ restaurantRouter.get(
 
       const restaurant = await restaurantRepository.findOne({
         where: { id: Number(restaurantId) },
+        relations: ["menus", "coupons", "categories"],
       });
 
       if (!restaurant) {
