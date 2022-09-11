@@ -33,6 +33,32 @@ restaurantRouter.get(
   }
 );
 
+restaurantRouter.get(
+  "/:restaurantId",
+  authValidator(),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { restaurantId } = req.params;
+
+      const restaurantRepository = await AppDataSource.getRepository(
+        Restaurant
+      );
+
+      const restaurant = await restaurantRepository.findOne({
+        where: { id: Number(restaurantId) },
+      });
+
+      if (!restaurant) {
+        return res.status(404).json({ error: "식당을 찾을 수 없습니다." });
+      }
+
+      res.json(restaurant);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
 restaurantRouter.post(
   "/",
   authValidator(),
