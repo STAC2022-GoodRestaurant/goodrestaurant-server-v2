@@ -27,7 +27,7 @@ restaurantRouter.get(
     let orderBy = "";
     if (order) {
       if (order === "rate") {
-        orderBy = "ORDER BY rating DESC";
+        orderBy = "ORDER BY total_rating DESC";
       } else if (order === "dist") {
         orderBy = "ORDER BY rating ASC";
       }
