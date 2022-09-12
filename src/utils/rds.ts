@@ -9,4 +9,8 @@ export const AppDataSource = new typeorm.DataSource({
   database: process.env.MYSQL_DATABASE,
   entities: [__dirname + "/../**/*.mo.{js,ts}"],
   synchronize: process.env.NODE_ENV === "dev" ? true : false,
+  extra: {
+    charset: "utf8mb4_unicode_ci",
+  },
+  legacySpatialSupport: false,
 });
