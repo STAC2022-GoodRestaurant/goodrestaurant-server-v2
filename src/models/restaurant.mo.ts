@@ -27,6 +27,9 @@ export class Restaurant extends Model {
   @Column({ type: "varchar", length: 40 })
   coupon_price!: string;
 
+  @Column({ type: "int", default: 0 })
+  rating?: number;
+
   @Column({
     type: "geometry",
     spatialFeatureType: "Point",

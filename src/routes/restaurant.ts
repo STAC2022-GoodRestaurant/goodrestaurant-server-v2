@@ -16,17 +16,27 @@ restaurantRouter.get(
   validator([
     query("lat").exists().isNumeric(),
     query("lon").exists().isNumeric(),
+    query("order").optional().isString(),
   ]),
   async (req: Request, res: Response, next: NextFunction) => {
-    const { lat, lon } = req.query;
+    const { lat, lon, order } = req.query;
 
     const restaurantRepository = await AppDataSource.getRepository(Restaurant);
+
+    let orderBy = "";
+    if (order) {
+      if (order === "rate") {
+        orderBy = "ORDER BY rating DESC";
+      } else if (order === "dist") {
+        orderBy = "ORDER BY rating ASC";
+      }
+    }
     const rawData = await restaurantRepository.query(
       `select *, ST_DISTANCE_SPHERE(ST_GeomFromGeoJSON('{"type":"Point","coordinates":[${Number(
         lon
       )},${Number(
         lat
-      )}]}'), position) AS dist FROM restaurant HAVING dist <= 2500`
+      )}]}'), position) AS dist FROM restaurant HAVING dist <= 2500 ${orderBy}` // 반경 2.5km
     );
 
     res.json(rawData);
