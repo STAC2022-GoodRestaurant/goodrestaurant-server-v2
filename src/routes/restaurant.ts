@@ -1,11 +1,12 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { body, query } from "express-validator";
+import { body, param, query } from "express-validator";
 import { Menu } from "../models/menu.mo";
 import { Restaurant } from "../models/restaurant.mo";
 import { authValidator, validator } from "../public/middleware";
 import { AppDataSource } from "../utils/rds";
 import axios from "axios";
 import { Geometry } from "geojson";
+import { Review } from "../models/review.mo";
 
 export const restaurantPath = "/restaurant";
 export const restaurantRouter = Router();
@@ -144,6 +145,49 @@ restaurantRouter.post(
       }
 
       await restaurantRepository.save(restaurant);
+
+      res.json({ message: "ok" });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+restaurantRouter.post(
+  "/review/:restaurantId",
+  authValidator(),
+  validator([
+    param("restaurantId").exists().isNumeric(),
+    body("content").exists().isString(),
+    body("rating").exists().isInt(),
+    body("imageUrl").exists().isString(),
+  ]),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { user } = req;
+      const { restaurantId } = req.params;
+      const { content, rating, imageUrl } = req.body;
+
+      const restaurantRepository = await AppDataSource.getRepository(
+        Restaurant
+      );
+      const reviewRepository = await AppDataSource.getRepository(Review);
+
+      const restaurant = await restaurantRepository.findOne({
+        where: { id: Number(restaurantId) },
+      });
+
+      if (!restaurant) {
+        return res.status(404).json({ error: "식당을 찾을 수 없습니다." });
+      }
+
+      await reviewRepository.insert({
+        content,
+        rating,
+        imageUrl: imageUrl ? imageUrl : null,
+        writer: user,
+        restaurant,
+      });
 
       res.json({ message: "ok" });
     } catch (err) {

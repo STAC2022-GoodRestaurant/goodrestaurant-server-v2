@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne } from "typeorm";
 import { Model } from "../public/model";
+import { Restaurant } from "./restaurant.mo";
 import { UserModel } from "./user.mo";
 
 @Entity()
@@ -15,4 +16,7 @@ export class Review extends Model {
 
   @ManyToOne(() => UserModel)
   writer!: UserModel;
+
+  @ManyToOne(() => Restaurant)
+  restaurant!: Restaurant;
 }

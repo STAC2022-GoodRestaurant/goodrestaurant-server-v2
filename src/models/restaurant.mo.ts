@@ -6,6 +6,7 @@ import { GeometryTransformer } from "../utils/transformers";
 import { Category } from "./category.mo";
 import { Coupon } from "./coupon.mo";
 import { Menu } from "./menu.mo";
+import { Review } from "./review.mo";
 
 @Entity()
 export class Restaurant extends Model {
@@ -28,7 +29,10 @@ export class Restaurant extends Model {
   coupon_price!: string;
 
   @Column({ type: "int", default: 0 })
-  rating?: number;
+  total_rating?: number;
+
+  @Column({ type: "int", default: 0 })
+  total_review?: number;
 
   @Column({
     type: "geometry",
@@ -43,6 +47,9 @@ export class Restaurant extends Model {
 
   @OneToMany((type) => Coupon, (coupon) => coupon.restaurant)
   coupons!: Coupon[];
+
+  @OneToMany((type) => Review, (review) => review.restaurant)
+  reviews!: Review[];
 
   @ManyToMany(() => Restaurant)
   @JoinTable()
