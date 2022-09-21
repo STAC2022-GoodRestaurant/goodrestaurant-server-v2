@@ -1,6 +1,6 @@
 import ejs from "ejs";
 import { NextFunction, Request, Response, Router } from "express";
-import { body } from "express-validator";
+import { body, query } from "express-validator";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import path from "path";
@@ -254,6 +254,33 @@ authRouter.delete(
       await verifiyLogRepository.delete({ email });
 
       res.json({ message: "ok" });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+authRouter.get(
+  "/check-email",
+  validator([query("email").exists().isEmail()]),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { email } = req.query;
+
+      const userRepository = await AppDataSource.getRepository(UserModel);
+
+      if (!email) {
+        throw Error("이메일이 존재하지 않습니다.");
+      }
+
+      const stringifyEmail = email.toString();
+      const isExist = await userRepository.findOneBy({ email: stringifyEmail });
+
+      if (isExist) {
+        throw Error("이미 가입된 이메일입니다.");
+      }
+
+      res.json({ message: "사용 가능한 이메일입니다." });
     } catch (err) {
       next(err);
     }
